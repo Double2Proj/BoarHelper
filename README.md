@@ -1,4 +1,5 @@
 BoarHelper is a console app (and will be a discord bot) designed to be used alongside the BoarBot discord bot and gives some information that BoarBot does not.
+To download, simply download and run BoarHelper.exe.
 
 Currently, there are three modes that can be used.
 
