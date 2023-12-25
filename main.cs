@@ -156,7 +156,6 @@ double[] weightCalc(double blessings, double[] modWeights)
 {
     //holds the combined value for everything in modweights
     double combinedWeights = 0;
-    blessings += 1;
     //loops over once for every rarity, 0 is common and 6 is divine
     for (int j = 0; j < 7; j++)
     {
@@ -540,8 +539,27 @@ void giftMode()
     //number of gifts
     double giftNumber = 0;
     double finalChance = 0;
+    //holds whether boarmas is active
+    bool isCristmas = false;
     //asks for wanted item and quantity
-    Console.WriteLine("What item do you want? Bucks are not currently availible.");
+    Console.WriteLine("Is it boarmas? Y or N");
+    userInput = Console.ReadLine();
+    switch (userInput)
+    {
+        case ("Y"):
+        case ("y"):
+            isCristmas = true;
+            break;
+        case ("N"):
+        case ("n"):
+            isCristmas = false;
+            break;
+        default:
+            Console.WriteLine("Your input is not recognized. Please enter a recogized input.");
+            giftMode();
+            break;
+    }
+    Console.WriteLine("What item do you want? Use a powerup name, \"random boar\", or the name of any random boar. Bucks are not currently availible.");
     userInput = Console.ReadLine();
     switch (userInput)
     {
@@ -552,15 +570,38 @@ void giftMode()
             break;
         case ("serums"):
             itemType = "serum(s)";
-            rarity = 0.09975;
+            if(isCristmas == false)
+            {
+                rarity = 0.09975;
+            }
+            else
+            {
+                rarity = 0.0975;
+            }
             break;
         case ("miracle charms"):
+        case ("charms"):
             itemType = "charm(s)";
-            rarity = 0.089775;
+            if (isCristmas == false)
+            {
+                rarity = 0.089775;
+            }
+            else
+            {
+                rarity = 0.8775;
+            }
             break;
         case ("transmutation charges"):
+        case ("charges"):
             itemType = "charge(s)";
-            rarity = 0.009975;
+            if (isCristmas == false)
+            {
+                rarity = 0.009975;
+            }
+            else
+            {
+                rarity = 0.00975;
+            }
             break;
         case ("random boar"):
         case ("boar"):
@@ -569,13 +610,24 @@ void giftMode()
             break;
         case ("boarnderwear"):
         case ("underwear"):
-            itemType = "boarnderwear";
-            rarity = 0.0005;
+            itemType = "boarnderwear(s)";
+            if (isCristmas == false)
+            {
+                rarity = 0.0005;
+            }
+            else
+            {
+                rarity = 0.001;
+            }
             break;
+        case ("santa"):
+            itemType = "santa(s)";
+            rarity = 0.004;
+            break;
+
         default:
             Console.WriteLine("Your input is not recognized. Please enter a recogized input.");
             giftMode();
-            Environment.Exit(112);
             break;
     }
     Console.WriteLine("How many do you want?");
@@ -594,7 +646,6 @@ void giftMode()
         Console.WriteLine();
         Console.WriteLine("Please enter a positive integer.");
         giftMode();
-        Environment.Exit(114);
     }
     finalChance = giftCalc( rarity, itemNumber, giftNumber);
     printGiftInfo(itemType, finalChance, giftNumber, itemNumber);
